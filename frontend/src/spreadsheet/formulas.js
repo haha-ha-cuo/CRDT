@@ -1,12 +1,5 @@
 import FormulaParser from 'fast-formula-parser'
-import {
-  address,
-  columnCount,
-  formulaFor,
-  literal,
-  rowCount,
-  worksheetName,
-} from './spreadsheet.js'
+import { address, columnCount, formulaFor, literal, rowCount, worksheetName } from './cells.js'
 
 const { FormulaError } = FormulaParser
 

@@ -1,8 +1,14 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, ref, shallowRef } from 'vue'
 import * as Y from 'yjs'
-import { calculate, display } from './formulas'
-import { address, columnCount, columnLabel, rowCount, worksheetName } from './spreadsheet'
+import { calculate, display } from '../../spreadsheet/formulas.js'
+import {
+  address,
+  columnCount,
+  columnLabel,
+  rowCount,
+  worksheetName,
+} from '../../spreadsheet/cells.js'
 
 const props = defineProps({ cells: { type: Object, required: true } })
 const sheet = ref(null)
@@ -236,3 +242,5 @@ function copy(event) {
     </div>
   </div>
 </template>
+
+<style scoped src="./SpreadsheetEditor.css"></style>

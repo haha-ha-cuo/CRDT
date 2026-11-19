@@ -1,0 +1,156 @@
+.spreadsheet {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.formula-bar {
+  display: grid;
+  grid-template-columns: 4rem 2.5rem minmax(0, 1fr);
+  align-items: stretch;
+  height: 2.55rem;
+  border-bottom: 1px solid #dce4df;
+  background: #fff;
+}
+.cell-address,
+.formula-label {
+  display: grid;
+  place-items: center;
+  border-right: 1px solid #dce4df;
+  color: #496057;
+  font-size: 0.87rem;
+}
+.cell-address {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+.formula-label {
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+.formula-bar input {
+  width: 100%;
+  padding: 0 0.7rem;
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.9rem;
+}
+.formula-bar input:focus {
+  outline: 2px solid #35855e;
+  outline-offset: -2px;
+}
+.formula-bar input::placeholder {
+  color: #687b71;
+}
+
+.grid-scroll {
+  height: max(18rem, calc(100dvh - 9.45rem));
+  overflow: auto;
+  background: #fff;
+}
+.grid {
+  min-width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.grid th,
+.grid td {
+  height: 2rem;
+  border-right: 1px solid #e1e7e3;
+  border-bottom: 1px solid #e1e7e3;
+  padding: 0;
+}
+.grid th,
+.grid-corner {
+  background: #f0f4f1;
+  color: #53665b;
+  font-weight: 550;
+  font-size: 0.81rem;
+}
+.grid thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.grid tr > :first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 2.75rem;
+  min-width: 2.75rem;
+}
+.grid thead th,
+.grid tbody td {
+  width: 7.4rem;
+  min-width: 7.4rem;
+}
+.grid td {
+  background: #fff;
+}
+.grid td.grid-corner {
+  background: #e8eeea;
+}
+.grid th.highlighted {
+  background: #e0eee5;
+  color: #1c5f3f;
+}
+.grid td.selected {
+  box-shadow: inset 0 0 0 2px #31865d;
+  background: #f7fbf8;
+}
+
+.cell-button,
+.cell-editor {
+  display: block;
+  width: 100%;
+  max-width: 7.4rem;
+  height: 1.93rem;
+  padding: 0 0.44rem;
+  color: #202b27;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+.cell-button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: cell;
+}
+.cell-button.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.cell-editor {
+  background: #fff;
+  outline: 2px solid #31865d;
+  outline-offset: -2px;
+}
+.sheet-tabs {
+  display: flex;
+  align-items: stretch;
+  height: 2.3rem;
+  padding-left: 2.75rem;
+  border-top: 1px solid #dce4df;
+  background: #f0f4f1;
+}
+.sheet-tabs span {
+  display: grid;
+  place-items: center;
+  min-width: 5.3rem;
+  padding-inline: 0.7rem;
+  border-bottom: 2px solid #24704d;
+  font-size: 0.855rem;
+  font-weight: 650;
+  color: #206143;
+  background: #fff;
+}
+
+@media (max-width: 650px) {
+  .grid-scroll {
+    height: max(18rem, calc(100dvh - 18rem));
+  }
+}
