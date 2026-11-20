@@ -1,4 +1,5 @@
 <script setup>
+import IconMathFunction from '@tabler/icons-vue/icons/IconMathFunction'
 import { computed, nextTick, onBeforeUnmount, ref, shallowRef } from 'vue'
 import * as Y from 'yjs'
 import { calculate, display } from '../../spreadsheet/formulas.js'
@@ -161,7 +162,9 @@ function copy(event) {
   <div class="spreadsheet">
     <div class="formula-bar">
       <span class="cell-address" aria-label="所选单元格">{{ activeAddress }}</span>
-      <label for="cell-formula" class="formula-label" title="公式或值">ƒx</label>
+      <label for="cell-formula" class="formula-label" title="公式或值">
+        <icon-math-function :size="18" aria-hidden="true" focusable="false" />
+      </label>
       <input
         id="cell-formula"
         type="text"
@@ -179,7 +182,7 @@ function copy(event) {
       <table class="grid" aria-label="Excel 工作表">
         <thead>
           <tr>
-            <td class="grid-corner"></td>
+            <td></td>
             <th
               v-for="col in columnCount"
               :key="col"

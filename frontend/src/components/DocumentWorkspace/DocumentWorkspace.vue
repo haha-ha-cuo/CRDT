@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, shallowRef } from 'vue'
-import { NButton, NSpin } from 'naive-ui'
+import { NButton, NLayout, NSpin } from 'naive-ui'
 import * as Y from 'yjs'
 import { workbookRows } from '../../spreadsheet/cells.js'
 import { openWorkspace } from '../../storage/workspace.js'
@@ -16,6 +16,7 @@ const documents = shallowRef([])
 const activeId = ref(null)
 const loading = ref(true)
 const storageError = ref(false)
+const sidebarCollapsed = ref(false)
 const modalOpen = ref(false)
 const exportError = ref('')
 const exporting = ref(false)
@@ -100,57 +101,58 @@ async function exportSpreadsheet() {
 </script>
 
 <template>
-  <div class="workspace">
-    <document-sidebar
-      :documents="documents"
-      :active-id="activeId"
-      :disabled="loading || storageError"
-      @create="modalOpen = true"
-      @select="choose"
-    />
+  <n-layout has-sider>
+    <div class="workspace">
+      <document-sidebar
+        v-model:collapsed="sidebarCollapsed"
+        :documents="documents"
+        :active-id="activeId"
+        :disabled="loading || storageError"
+        @create="modalOpen = true"
+        @select="choose"
+      />
 
-    <main class="main">
-      <div v-if="loading" class="empty-view">
-        <n-spin aria-label="加载工作区" />
-      </div>
-      <div v-else-if="storageError" class="empty-view" role="alert">
-        <h1>无法打开本地工作区</h1>
-        <p>请确认浏览器允许此站点保存数据，再刷新页面。</p>
-      </div>
-      <template v-else-if="active">
-        <header class="topbar">
-          <div class="document-heading">
-            <document-icon variant="heading" />
-            <div>
-              <h1>{{ active.title }}</h1>
-              <p>Excel 表格 · 浏览器本地存储</p>
-            </div>
-          </div>
-          <n-button secondary :loading="exporting" @click="exportSpreadsheet">导出 .xlsx</n-button>
-        </header>
-        <p v-if="exportError" class="error-banner" role="alert">
-          {{ exportError }}
-        </p>
-        <spreadsheet-editor :key="active.id" ref="editor" :cells="active.cells" />
-      </template>
-
-      <section v-else class="empty-view">
-        <div class="empty-icon" aria-hidden="true">
-          <document-icon class="empty-document-icon" />
+      <main class="main">
+        <div v-if="loading" class="empty-view">
+          <n-spin aria-label="加载工作区" />
         </div>
-        <h1>新建第一份文档</h1>
-        <n-button type="primary" @click="modalOpen = true">新建文档</n-button>
-      </section>
-    </main>
-  </div>
+        <div v-else-if="storageError" class="empty-view" role="alert">
+          <h1>无法打开本地工作区</h1>
+          <p>请确认浏览器允许此站点保存数据，再刷新页面。</p>
+        </div>
+        <template v-else-if="active">
+          <header class="topbar">
+            <div class="document-heading">
+              <document-icon variant="heading" />
+              <div>
+                <h1>{{ active.title }}</h1>
+                <p>Excel 表格 · 浏览器本地存储</p>
+              </div>
+            </div>
+            <n-button :loading="exporting" @click="exportSpreadsheet">导出 .xlsx</n-button>
+          </header>
+          <p v-if="exportError" class="error-banner" role="alert">
+            {{ exportError }}
+          </p>
+          <spreadsheet-editor :key="active.id" ref="editor" :cells="active.cells" />
+        </template>
+
+        <section v-else class="empty-view">
+          <document-icon class="empty-document-icon" />
+          <h1>新建第一份文档</h1>
+          <n-button type="primary" @click="modalOpen = true">新建文档</n-button>
+        </section>
+      </main>
+    </div>
+  </n-layout>
 
   <create-document-dialog v-model:show="modalOpen" @create="create" />
 </template>
 
 <style scoped>
 .workspace {
-  display: grid;
-  grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
+  display: flex;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -162,6 +164,7 @@ async function exportSpreadsheet() {
 
 .main {
   display: flex;
+  flex: 1;
   flex-direction: column;
   min-width: 0;
 }
@@ -210,29 +213,22 @@ async function exportSpreadsheet() {
   margin: 0;
   color: #53665b;
 }
-.empty-icon {
-  display: grid;
-  place-items: center;
-  background: #e2f1e8;
-  border-radius: 0.95rem;
-  width: 3.4rem;
-  height: 3.4rem;
-}
 .empty-document-icon {
-  transform: scale(1.55);
+  width: 2.75rem;
+  height: 2.75rem;
 }
 
 .error-banner {
   margin: 0;
   color: #9c2f39;
   font-size: 0.875rem;
-  background: #fff0f1;
   padding: 0.6rem 1rem;
+  border-bottom: 1px solid #f0d5d9;
 }
 
 @media (max-width: 650px) {
   .workspace {
-    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
   }
 }
 </style>

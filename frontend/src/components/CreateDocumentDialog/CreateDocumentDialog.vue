@@ -87,11 +87,9 @@ function create() {
 .type-option:not(:disabled):hover,
 .type-option:not(:disabled):focus-visible {
   border-color: #24704d;
-  background: #f7fbf8;
 }
 .type-option:disabled {
-  color: #526278;
-  background: #f7f8fb;
+  color: #687278;
   cursor: default;
 }
 .type-option small {

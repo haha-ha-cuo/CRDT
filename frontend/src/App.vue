@@ -4,6 +4,10 @@ import DocumentWorkspace from './components/DocumentWorkspace/DocumentWorkspace.
 
 const theme = {
   common: {
+    fontFamily: 'var(--app-font-family)',
+    bodyColor: '#fff',
+    cardColor: '#fff',
+    modalColor: '#fff',
     primaryColor: '#24704d',
     primaryColorHover: '#31865d',
     primaryColorPressed: '#1b583c',

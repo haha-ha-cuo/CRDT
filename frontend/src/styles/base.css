@@ -1,7 +1,8 @@
 :root {
-  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --app-font-family: 'PingFang SC', system-ui, sans-serif;
+  font-family: var(--app-font-family);
   color: #202b27;
-  background: #f3f6f4;
+  background: #fff;
   font-synthesis: none;
 }
 
@@ -10,8 +11,9 @@
 *::after {
   box-sizing: border-box;
 }
-body {
+:root > body {
   margin: 0;
+  font-family: inherit;
 }
 button,
 input {

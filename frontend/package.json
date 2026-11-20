@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tabler/icons-vue": "^3.52.0",
     "fast-formula-parser": "^1.0.19",
     "naive-ui": "^2.45.3",
     "vue": "^3.5.45",
